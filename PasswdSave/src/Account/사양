@@ -1,0 +1,8 @@
+입력 타입: string
+데이터 저장: Dictionary<string, Account)
+    Account List에는 ID와 PW가 암호화 되어 들어갈 예정
+    암호화 방식은 아직 미정(TrueCrypt나 C#사양의 AES가 들어갈듯)
+    Dictionary string key는 웹사이트 및 이용 출처
+변수: string ID, string PW
+    ID, PW는 공백 가능
+    대소문자, 숫자, 특수문자를 제외한 문자의 입력은 금지 
