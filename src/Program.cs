@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-namespace PasswdSave
+namespace PasswordManager
 {
     public class Program
     {
@@ -9,14 +9,14 @@ namespace PasswdSave
             Dictionary<int, AccountStorage> Accounts 
             = new Dictionary<int, AccountStorage>();
 
-            ConsoleKeyInfo ConsoleInfo;
+            string userInput;
             do
             {
                 Console.WriteLine("1. 계정 저장 2. 계정 불러오기 Esc: 종료");
-                ConsoleInfo = Console.ReadKey();
-                switch(ConsoleInfo.Key)
+                userInput = Console.ReadLine();
+                switch(userInput)
                 {
-                    case ConsoleKey.D1:
+                    case "1":
                     {
                         string id, passwd, info;
                         Console.WriteLine("계정의 용도를 입력해주세요.");
@@ -29,7 +29,7 @@ namespace PasswdSave
                         Accounts.Add(Accounts.Count, new AccountStorage(info, id, passwd));
                         break;
                     }
-                    case ConsoleKey.D2:
+                    case "2":
                     {
                         if(Accounts.Count == 0)
                             {
@@ -45,6 +45,8 @@ namespace PasswdSave
 
                        // 1p당 5계정씩, 5개 이상이면 다음 페이지로 넘기고 이하면 남은 공간은 띄어쓰기로
                         int nowPage = 0;
+                        do
+                        {
                         if(downCount == 0)
                         {
                           for(int i = 0 + nowPage; i < 5 + nowPage; i++)
@@ -60,14 +62,17 @@ namespace PasswdSave
                             }
                             for(int i = 0; i< 5 - downCount; i++)
                             {
-                               Console.WriteLine();
+                                Console.WriteLine();
                             }
                         }
+
+                        nowPage = int.Parse(Console.ReadLine());
+                        }while(userInput == "0");
                         break;
                     }
                 }
                 Console.Clear();
-            }while(ConsoleKeyInfo.Equals(ConsoleInfo, ConsoleKey.Escape));
+            }while(ConsoleKeyInfo.Equals(userInput, ConsoleKey.Escape));
         }
     }
 }

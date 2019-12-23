@@ -1,6 +1,6 @@
 using System;
 
-namespace PasswdSave
+namespace PasswordManager
 {
     class AccountStorage
     {
