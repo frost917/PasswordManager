@@ -1,6 +1,2 @@
-<<<<<<< HEAD
-.vs
-=======
-bin/
-obj/
->>>>>>> 8778920389ee6abb91b10b418409574a2f5e57c5
+﻿/.vs/PasswordManager/DesignTimeBuild
+/.vs/PasswordManager/v16/Server/sqlite3

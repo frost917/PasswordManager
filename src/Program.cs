@@ -1,23 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+
 namespace PasswordManager
 {
     public class Program
     {
         static void Main()
         {
-            Dictionary<int, AccountStorage> Accounts 
+            Dictionary<int, AccountStorage> Accounts
             = new Dictionary<int, AccountStorage>();
+            CultureInfo culture = new CultureInfo(CultureInfo.CurrentCulture.Name);
 
             string userInput;
-            do
+            while( true )
             {
-                Console.WriteLine("1. 계정 저장 2. 계정 불러오기 Esc: 종료");
+                // 모든 WriteLine의 Value값은 경고 제거를 위해 Xml로 이전할 것.
+                Console.WriteLine("1. 계정 저장 2. 계정 불러오기");
                 userInput = Console.ReadLine();
-                switch(userInput)
+                switch( userInput )
                 {
                     case "1":
                     {
+                        Console.Clear();
                         string id, passwd, info;
                         Console.WriteLine("계정의 용도를 입력해주세요.");
                         info = Console.ReadLine();
@@ -31,48 +36,56 @@ namespace PasswordManager
                     }
                     case "2":
                     {
-                        if(Accounts.Count == 0)
-                            {
-                                Console.Clear();
-                                Console.WriteLine("등록된 계정이 없습니다.");
-                                break;
-                            }
+                        if( Accounts.Count == 0 )
+                        {
+                            Console.Clear();
+                            Console.WriteLine("등록된 계정이 없습니다.");
+                            Console.Read();
+                            break;
+                        }
 
+                        int nowPage = 0;
                         //등록된 계정은 한 페이지당 5개씩 출력
                         int downCount = Accounts.Count % 5;
                         //5개 이상의 계정 존재할 경우 화살표 키로 페이지 이동
                         int pageCount = Accounts.Count / 5;
-
-                       // 1p당 5계정씩, 5개 이상이면 다음 페이지로 넘기고 이하면 남은 공간은 띄어쓰기로
-                        int nowPage = 0;
                         do
                         {
-                        if(downCount == 0)
-                        {
-                          for(int i = 0 + nowPage; i < 5 + nowPage; i++)
-                          {
-                            Console.WriteLine($"{Accounts[i].Info}: {Accounts[i].ID}/{Accounts[i].Passwd}");
-                          }
-                        }
-                        else
-                        {
-                            for(int i = 0 + nowPage; i< downCount + nowPage; i++)
+                            try
                             {
-                               Console.WriteLine($"{Accounts[i].Info}: {Accounts[i].ID}/{Accounts[i].Passwd}");
+                                for( int i = 0 + nowPage; i < 5 + nowPage; i++ )
+                                {
+                                    Console.WriteLine($"{Accounts[i].Info}: {Accounts[i].ID}/{Accounts[i].Passwd}");
+                                }
                             }
-                            for(int i = 0; i< 5 - downCount; i++)
+                            catch( KeyNotFoundException )
                             {
-                                Console.WriteLine();
+                                for( int i = 0; i < 5 - downCount; i++ )
+                                {
+                                    Console.WriteLine();
+                                }
                             }
-                        }
+                            Console.WriteLine($"{nowPage + 1} / {pageCount + 1} 페이지, 0: 메뉴로 돌아가기");
 
-                        nowPage = int.Parse(Console.ReadLine());
-                        }while(userInput == "0");
+                            userInput = Console.ReadLine();
+                            int tmp = nowPage;
+                            try
+                            {
+                                nowPage = int.Parse(userInput, culture.NumberFormat);
+                            }
+                            catch( FormatException )
+                            {
+                                Console.WriteLine("잘못된 페이지입니다.");
+                                nowPage = tmp;
+                                Console.Read();
+                            }
+
+                        } while( !Equals(userInput, "0") );
                         break;
                     }
                 }
                 Console.Clear();
-            }while(ConsoleKeyInfo.Equals(userInput, ConsoleKey.Escape));
+            }
         }
     }
 }

@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# DV2001: 연결된 종속성 다이어그램 없음
+dotnet_diagnostic.DV2001.severity = none
