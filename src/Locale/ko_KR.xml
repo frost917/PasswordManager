@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Locale>
+  <Main>1. 계정 저장 2. 계정 불러오기</Main>
+  <AccountInfo>계정의 용도를 입력해주세요.</AccountInfo>
+  <AccountID>ID를 입력해주세요</AccountID>
+  <AccountPasswd>비밀번호를 입력해주세요.</AccountPasswd>
+  <ErrNoAccount>등록된 계정이 없습니다.</ErrNoAccount>
+  <ErrWrongPage>잘못된 페이지입니다.</ErrWrongPage>
+</Locale>
